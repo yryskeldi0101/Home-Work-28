@@ -58,7 +58,9 @@ const StyledTitle = styledComponents.span`
     margin-left: 12px;
     margin-right: 24px;
 
+
 `
+
 const StyledCount = styledComponents.span`
   background-color: #8a2b06;
   border-radius: 30px;

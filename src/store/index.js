@@ -11,4 +11,5 @@ export const store = configureStore({
         [uiSlice.name]: uiSlice.reducer,
         [authSlice.name]: authSlice.reducer,
     },
+    
 })

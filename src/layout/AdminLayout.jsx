@@ -16,6 +16,7 @@ const AdminLayout = () => {
             {isBasketVisible && (
                 <Basket open={isBasketVisible} onClose={showBasketHandler} />
             )}
+            
             <Container>Admin Layout</Container>
             <Meals />
         </div>

@@ -10,6 +10,7 @@ function MealForm({ id, title, price }) {
     const dispatch = useDispatch()
     const [amount, setAmount] = useState(1)
 
+    
     const amoutChangeHandler = (event) => {
         setAmount(event.target.value)
     }

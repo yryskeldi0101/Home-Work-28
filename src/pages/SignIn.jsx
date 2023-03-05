@@ -13,16 +13,12 @@ const SignIn = () => {
     const navigate = useNavigate()
 
     const submitHandler = ({ email, password }) => {
-        try {
-            const loginData = {
-                email,
-                password,
-            }
-            dispatch(signIn(loginData)).unwrap()
-            navigate('/admin')
-        } catch (error) {
-            console.log(error)
+        const loginData = {
+            email,
+            password,
         }
+        dispatch(signIn(loginData)).unwrap()
+        navigate('/admin')
     }
 
     const formik = useFormik({

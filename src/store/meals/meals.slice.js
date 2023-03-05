@@ -6,6 +6,7 @@ export const mealsactionsTypes = {
     GET_MEALS_STARTED: 'GET_MEALS_STARTED',
     GET_MEALS_FAILED: 'GET_MEALS_FAILED',
 }
+
 const initialState = {
     maels: [],
     isLoading: false,

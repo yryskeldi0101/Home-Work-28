@@ -4,11 +4,7 @@ import { Provider, useDispatch, useSelector } from 'react-redux'
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { BrowserRouter } from 'react-router-dom'
 import styled from 'styled-components'
-// import styled from 'styled-components'
-// import Basket from './components/basket/Basket'
-// import { Header } from './components/header/Header'
-// import { Meals } from './components/meals/Meals'
-// import { Summary } from './components/summary/Summary'
+
 import Snackbar from './components/UI/Snackbar'
 import { darkTheme, lightTheme } from './lib/constans/theme'
 import AppRouts from './routes/Routes'

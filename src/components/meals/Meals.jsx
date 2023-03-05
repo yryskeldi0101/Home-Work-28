@@ -12,6 +12,7 @@ export const Meals = () => {
         dispatch(getMeals())
     }, [dispatch])
 
+    
     return (
         <Card>
             {isLoading && !error && <p>loading......</p>}

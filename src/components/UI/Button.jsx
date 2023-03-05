@@ -15,6 +15,7 @@ export const Button = ({
     )
 }
 
+
 const getBackgroauntColor = (variant) => {
     return variant === 'contained' ? '#8a2b06' : 'white'
 }

@@ -12,6 +12,7 @@ function Snackbar({ isOpen, onClose, message, severity, autoHideDuration }) {
             <Alert onClose={onClose} severity={severity} sx={{ width: '100%' }}>
                 {message}
             </Alert>
+            
         </MuiSnackbar>
     )
 }
