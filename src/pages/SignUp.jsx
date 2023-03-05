@@ -34,7 +34,7 @@ const SigUpPage = () => {
             name,
             email,
             password,
-            role: UserRoles.USER,
+            role: UserRoles.ADMIN,
         }
 
         dispatch(signUp(data))

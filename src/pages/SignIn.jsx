@@ -4,21 +4,25 @@ import { styled } from '@mui/material/styles'
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { useFormik } from 'formik'
 import React from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 import { signIn } from '../store/auth/auth.thunk'
 
 const SignIn = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
-
+    const user = useSelector((state) => state.auth)
     const submitHandler = ({ email, password }) => {
         const loginData = {
             email,
             password,
         }
         dispatch(signIn(loginData)).unwrap()
-        navigate('/admin')
+        if (user.isAuthorized === true) {
+            navigate('/admin')
+        } else {
+            navigate('/')
+        }
     }
 
     const formik = useFormik({

@@ -10,7 +10,7 @@ function MealItem({ meal }) {
             <StyledItemInfo>
                 <StyledTitle>{meal.title}</StyledTitle>
                 <p>{meal.description}</p>
-           
+
                 <StyledSpan>${meal.price}</StyledSpan>
             </StyledItemInfo>
             <MealForm id={meal._id} price={meal.price} title={meal.title} />

@@ -31,11 +31,9 @@ export const Header = ({ onShowBasket }) => {
     useEffect(() => {
         setAnimationClass('bump')
 
-        
         const id = setTimeout(() => {
             setAnimationClass('')
         }, 300)
-
 
         return () => {
             clearTimeout(id)
@@ -52,25 +50,21 @@ export const Header = ({ onShowBasket }) => {
         <Container>
             <Logo>ReactMeals</Logo>
             <BasketButton
-
                 onClick={onShowBasket}
                 className={animationClass}
                 count={calculateTotalAmount()}
             />
             <MuiButton
-
                 onClick={themeHandler}
                 className={animationClass}
                 count={calculateTotalAmount()}
                 sx={{ color: 'white' }}
             >
-
                 {themeMode === 'light' ? 'turn light mode' : 'turn durk mode'}
             </MuiButton>
             {isAuthorized ? (
                 <BtnStyle onClick={signOutHandler}>Sign Out</BtnStyle>
             ) : (
-
                 <BtnStyle onClick={signinHandler}>Sign In</BtnStyle>
             )}
         </Container>

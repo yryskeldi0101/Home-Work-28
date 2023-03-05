@@ -9,7 +9,6 @@ const initialState = {
     },
 }
 
-
 export const uiSlice = createSlice({
     name: 'ui',
     initialState,

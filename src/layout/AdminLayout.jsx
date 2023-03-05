@@ -1,22 +1,14 @@
-import React, { useState } from 'react'
+// import React, { useState } from 'react'
 import styled from 'styled-components'
-import Basket from '../components/basket/Basket'
+// import Basket from '../components/basket/Basket'
 import { Header } from '../components/header/Header'
 import { Meals } from '../components/meals/Meals'
 // import { Summary } from '../components/summary/Summary'
 
 const AdminLayout = () => {
-    const [isBasketVisible, setBasketVisible] = useState(false)
-    const showBasketHandler = () => {
-        setBasketVisible((prevState) => !prevState)
-    }
     return (
         <div>
-            <Header onShowBasket={showBasketHandler} />
-            {isBasketVisible && (
-                <Basket open={isBasketVisible} onClose={showBasketHandler} />
-            )}
-            
+            <Header />
             <Container>Admin Layout</Container>
             <Meals />
         </div>

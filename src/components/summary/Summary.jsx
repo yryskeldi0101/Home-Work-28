@@ -10,7 +10,6 @@ export const Summary = () => {
             <SummaryInfoCard />
         </Container>
     )
-    
 }
 
 const Container = styled.div`
