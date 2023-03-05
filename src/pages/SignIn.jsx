@@ -1,43 +1,81 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { Link } from 'react-router-dom'
+import { Button, Grid, TextField } from '@mui/material'
+import { styled } from '@mui/material/styles'
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { useFormik } from 'formik'
+import React from 'react'
+import { useDispatch } from 'react-redux'
+import { Link, useNavigate } from 'react-router-dom'
+import { signIn } from '../store/auth/auth.thunk'
 
-import { Grid, TextField, Button } from '@mui/material'
-import React, { useState } from 'react'
+const SignIn = () => {
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
 
-const SignInPage = () => {
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
-    const emailChandeHandler = (e) => {
-        setEmail(e.target.value)
+    const submitHandler = ({ email, password }) => {
+        try {
+            const loginData = {
+                email,
+                password,
+            }
+            dispatch(signIn(loginData)).unwrap()
+            navigate('/admin')
+        } catch (error) {
+            console.log(error)
+        }
     }
-    const passwordChandeHandler = (e) => {
-        setPassword(e.target.value)
-    }
-    const submitHandler = (e) => {
-        e.preventDefalult()
-    }
+
+    const formik = useFormik({
+        initialValues: {
+            email: '',
+            password: '',
+        },
+        onSubmit: submitHandler,
+    })
+
+    const { values, handleChange, handleSubmit } = formik
+
     return (
-        <Grid display="flex" justifyContent="center" marginTop={20}>
-            <Grid sx={{ background: '#fff', width: '400px', padding: '20px' }}>
-                <form onSubmit={submitHandler}>
-                    <Grid display="flex" flexDirection="column">
+        <MainGrid>
+            <GridContainer>
+                <form onSubmit={handleSubmit}>
+                    <FormGrid>
                         <TextField
-                            value={email}
-                            onChange={emailChandeHandler}
+                            value={values.email}
+                            onChange={handleChange}
                             label="Email"
+                            name="email"
                         />
                         <TextField
-                            value={password}
-                            onChange={passwordChandeHandler}
+                            value={values.password}
+                            onChange={handleChange}
                             label="Password"
+                            name="password"
                         />
-                        <Button>Sign In</Button>
-                        <Link to="/signup">Dont have an account</Link>
-                    </Grid>
+                        <Button type="submit">Sign In</Button>
+                        <Link to="/signup">{`Don't have account`}</Link>
+                    </FormGrid>
                 </form>
-            </Grid>
-        </Grid>
+            </GridContainer>
+        </MainGrid>
     )
 }
 
-export default SignInPage
+export default SignIn
+
+const MainGrid = styled(Grid)(() => ({
+    display: 'flex',
+    justifyContent: 'center',
+    marginTop: '200px',
+}))
+
+const GridContainer = styled(Grid)(() => ({
+    background: '#fff',
+    width: '500px',
+    padding: '20px',
+}))
+
+const FormGrid = styled(Grid)(() => ({
+    display: 'flex',
+    flexDirection: 'column',
+}))

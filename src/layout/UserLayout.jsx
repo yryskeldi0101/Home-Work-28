@@ -20,6 +20,7 @@ const UserLayout = () => {
             <Content>
                 <Outlet />
             </Content>
+            <Text>User Layout</Text>
         </>
     )
 }
@@ -28,4 +29,9 @@ export default UserLayout
 
 const Content = styled.div`
     margin-top: 101px;
+`
+const Text = styled.h3`
+    color: #fff;
+    font-size: 30px;
+    text-align: center;
 `

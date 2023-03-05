@@ -20,7 +20,7 @@ const StyledButton = styled(Button)(({ theme }) => ({
     borderRadius: '30px',
     padding: '12px 32px',
     fontWeight: '600',
-    color: theme.palette.primary.constrastText,
+    color: theme.palette.primary.contrastText,
     lineHeight: '24px',
     fontSize: '16px',
     border: 'none',

@@ -1,8 +1,9 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { Link } from 'react-router-dom'
-
+import { Link, useNavigate } from 'react-router-dom'
 import { Grid, TextField, Button } from '@mui/material'
 import React, { useState } from 'react'
+import { styled } from '@mui/material/styles'
+
 import { useDispatch } from 'react-redux'
 import { signUp } from '../store/auth/auth.thunk'
 import { UserRoles } from '../lib/constans/common'
@@ -26,38 +27,40 @@ const SigUpPage = () => {
     const confirmChandeHandler = (e) => {
         setConfirmPassword(e.target.value)
     }
+    const navigate = useNavigate()
     const submitHandler = (e) => {
-        e.preventDefalult()
+        e.preventDefault()
         const data = {
-            email,
             name,
+            email,
             password,
-            role: UserRoles.ADMIN,
+            role: UserRoles.USER,
         }
 
         dispatch(signUp(data))
+        navigate('/signin')
     }
     return (
         <Grid display="flex" justifyContent="center" marginTop={20}>
             <Grid sx={{ background: '#fff', width: '500px', padding: '20px' }}>
                 <form onSubmit={submitHandler}>
                     <Grid display="flex" flexDirection="column">
-                        <TextField
+                        <StyledIputs
                             value={name}
                             onChange={nameChandeHandler}
                             label="Name"
                         />
-                        <TextField
+                        <StyledIputs
                             value={email}
                             onChange={emailChandeHandler}
                             label="Email"
                         />
-                        <TextField
+                        <StyledIputs
                             value={password}
                             onChange={passwordChandeHandler}
                             label="Password"
                         />
-                        <TextField
+                        <StyledIputs
                             value={confirmPassword}
                             onChange={confirmChandeHandler}
                             label="ConfirmPassword"
@@ -72,3 +75,7 @@ const SigUpPage = () => {
 }
 
 export default SigUpPage
+
+const StyledIputs = styled(TextField)`
+    margin-top: 20px;
+`

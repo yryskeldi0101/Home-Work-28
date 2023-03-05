@@ -40,7 +40,10 @@ export const Header = ({ onShowBasket }) => {
         }
     }, [items])
     const signOutHandler = () => {
-        navigate('/singin')
+        navigate('/signin')
+    }
+    const signinHandler = () => {
+        navigate('/signin')
     }
     return (
         <Container>
@@ -61,7 +64,7 @@ export const Header = ({ onShowBasket }) => {
             {isAuthorized ? (
                 <BtnStyle onClick={signOutHandler}>Sign Out</BtnStyle>
             ) : (
-                <BtnStyle onClick={() => navigate('/signin')}>Sign In</BtnStyle>
+                <BtnStyle onClick={signinHandler}>Sign In</BtnStyle>
             )}
         </Container>
     )
@@ -96,10 +99,10 @@ const Logo = styledComponents.p`
   margin: 0;
 
 `
-const BtnStyle = styledComponents.button`
-backgroundColor: '#1d02b3',
-padding: '10px',
-'&:hover': {
-    backgroundColor: '#2c09f4',
-},
+const BtnStyle = styled(Button)`
+    background-color: bisque;
+    padding: 10px 20px;
+    &:hover {
+        background-color: azure;
+    }
 `

@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { STORAGE_KEYS } from '../../lib/constans/common'
-import { signUp } from './auth.thunk'
+import { signIn, signUp } from './auth.thunk'
 
 const getInitialUser = () => {
     const jsonData = localStorage.getItem(STORAGE_KEYS.AUTH)
@@ -20,7 +20,7 @@ const authSlice = createSlice({
     initialState,
     reducers: {},
     extraReducers: (builder) => {
-        return builder.addCase(signUp.fulfilled, (state, action) => {
+        builder.addCase(signUp.fulfilled, (state, action) => {
             state.isAuthorized = true
             state.token = action.payload.token
             state.user = {
@@ -28,6 +28,9 @@ const authSlice = createSlice({
                 email: action.payload.user.email,
                 role: action.payload.user.role,
             }
+        })
+        builder.addCase(signIn.fulfilled, (state) => {
+            state.isAuthorized = true
         })
     },
 })
