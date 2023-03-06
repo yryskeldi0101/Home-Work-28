@@ -8,6 +8,7 @@
         "airbnb",
         "plugin:prettier/recommended"
     ],
+
     "overrides": [
         {
             "files": ["src/**/*.slice.js"],
@@ -19,6 +20,7 @@
         "ecmaVersion": "latest",
         "sourceType": "module"
     },
+    
     "plugins": ["react"],
     "rules": {
         "react/function-component-definition": "off",
