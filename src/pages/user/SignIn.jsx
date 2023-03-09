@@ -1,30 +1,31 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { Button, Grid, TextField } from '@mui/material'
+import { Button, Grid, TextField, Typography } from '@mui/material'
 import { styled } from '@mui/material/styles'
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { useFormik } from 'formik'
-import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
-import { signIn } from '../store/auth/auth.thunk'
+import { signIn } from '../../store/auth/auth.thunk'
 
 const SignIn = () => {
+    const [error, setError] = useState()
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const user = useSelector((state) => state.auth)
+
     const submitHandler = ({ email, password }) => {
-        const loginData = {
+        const data = {
             email,
             password,
         }
-        dispatch(signIn(loginData)).unwrap()
-        if (user.isAuthorized === true) {
-            navigate('/admin')
-        } else {
-            navigate('/')
-        }
-    }
 
+        dispatch(signIn(data))
+            .unwrap()
+            .then(() => {
+                navigate('/admin/meals')
+            })
+            .catch((e) => setError(e.response.data.message))
+    }
     const formik = useFormik({
         initialValues: {
             email: '',
@@ -32,26 +33,48 @@ const SignIn = () => {
         },
         onSubmit: submitHandler,
     })
-
     const { values, handleChange, handleSubmit } = formik
 
+    const isEmailValid = () => {
+        return (
+            values.email.length === 0 ||
+            (values.email.length > 0 && values.email.includes('@'))
+        )
+    }
+
+    const isPasswordValid = () => {
+        return (
+            values.password.length === 0 ||
+            (values.password >= 0 && values.length >= 6)
+        )
+    }
     return (
         <MainGrid>
             <GridContainer>
                 <form onSubmit={handleSubmit}>
                     <FormGrid>
-                        <TextField
+                        <Input
+                            error={!isEmailValid()}
                             value={values.email}
                             onChange={handleChange}
                             label="Email"
                             name="email"
                         />
-                        <TextField
+                        <Input
+                            error={!isPasswordValid()}
                             value={values.password}
                             onChange={handleChange}
                             label="Password"
                             name="password"
                         />
+                        <Typography
+                            textAlign="center"
+                            sx={{ color: (theme) => theme.palette.error.main }}
+                            variant="danger"
+                        >
+                            {error}
+                        </Typography>
+
                         <Button type="submit">Sign In</Button>
                         <Link to="/signup">{`Don't have account`}</Link>
                     </FormGrid>
@@ -79,3 +102,7 @@ const FormGrid = styled(Grid)(() => ({
     display: 'flex',
     flexDirection: 'column',
 }))
+
+const Input = styled(TextField)`
+    margin-top: 20px;
+`

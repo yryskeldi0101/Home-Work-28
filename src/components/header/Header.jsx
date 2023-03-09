@@ -3,8 +3,9 @@ import { styled } from '@mui/material/styles'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import styledComponents from 'styled-components'
+import { signOut } from '../../store/auth/auth.thunk'
 import { getBasket } from '../../store/basket/getBasket'
 import { uiActions } from '../../store/UI/ui.slice'
 import { BasketButton } from './BasketButton'
@@ -40,7 +41,8 @@ export const Header = ({ onShowBasket }) => {
         }
     }, [items])
     const signOutHandler = () => {
-        navigate('/signin')
+        dispatch(signOut())
+        navigate('/')
     }
 
     const signinHandler = () => {
@@ -48,7 +50,9 @@ export const Header = ({ onShowBasket }) => {
     }
     return (
         <Container>
-            <Logo>ReactMeals</Logo>
+            <Link to="/">
+                <Logo>ReactMeals</Logo>
+            </Link>
             <BasketButton
                 onClick={onShowBasket}
                 className={animationClass}

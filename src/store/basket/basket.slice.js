@@ -39,9 +39,9 @@ export const basketSlice = createSlice({
             state.items = action.payload
             state.isLoading = false
         })
-        builder.addCase(getBasket.rejected, (state, action) => {
-            state.error = action.payload
+        builder.addCase(getBasket.rejected, (state) => {
             state.isLoading = false
+            state.error = 'error'
         })
         builder.addCase(updeteBasketItem.pending, (state) => {
             state.isLoading = true

@@ -1,7 +1,16 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import { axiosInstace } from '../../lib/axiosInstace'
+import { getBasketRequest } from '../../lib/constans/mealServis'
 
-export const getBasket = createAsyncThunk('basket/getBasket', async () => {
-    const { data } = await axiosInstace.get('/basket')
-    return data.data.items
-})
+export const getBasket = createAsyncThunk(
+    'basket/getBasket',
+    async (_, { rejectWithValue, getState }) => {
+        try {
+            const { token } = getState().auth
+
+            const { data } = await getBasketRequest(token)
+            return data.data.items
+        } catch (error) {
+            return rejectWithValue('something went wrong getBasket ')
+        }
+    }
+)

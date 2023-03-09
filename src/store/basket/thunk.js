@@ -1,14 +1,20 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 // eslint-disable-next-line import/no-extraneous-dependencies
 import axios from 'axios'
-import { axiosInstace } from '../../lib/axiosInstace'
+import {
+    addToBasketRequest,
+    deleteBasketItemRequest,
+    updeteBasketItemRequest,
+} from '../../lib/constans/mealServis'
 import { getBasket } from './getBasket'
 
 export const addtoBasket = createAsyncThunk(
     'basket/addToBasket',
-    async (newItem, { dispatch, rejectWithValue }) => {
+    async (newItem, { dispatch, rejectWithValue, getState }) => {
         try {
-            await axiosInstace.post(`foods/${newItem.id}/addToBasket`, newItem)
+            const { token } = getState().auth
+
+            await addToBasketRequest(token, newItem)
             return dispatch(getBasket())
         } catch (error) {
             return rejectWithValue('Some thing wen wronf')
@@ -18,9 +24,11 @@ export const addtoBasket = createAsyncThunk(
 
 export const updeteBasketItem = createAsyncThunk(
     'basket/updeteBasket',
-    async ({ amount, id }, { dispatch, rejectWithValue }) => {
+    async ({ amount, id }, { dispatch, rejectWithValue, getState }) => {
         try {
-            await axiosInstace.put(`basketItem/${id}/update`, { amount })
+            const { token } = getState().auth
+
+            await updeteBasketItemRequest(id, amount, token)
             dispatch(getBasket())
         } catch (error) {
             rejectWithValue(error)
@@ -30,9 +38,11 @@ export const updeteBasketItem = createAsyncThunk(
 
 export const deleteBasketItem = createAsyncThunk(
     '/basket/deleteBasket',
-    async (id, { dispatch, rejectWithValue }) => {
+    async (id, { dispatch, rejectWithValue, getState }) => {
         try {
-            await axiosInstace.delete(`/basketItem/${id}/delete`)
+            const { token } = getState().auth
+
+            await deleteBasketItemRequest(id, token)
             dispatch(getBasket())
         } catch (error) {
             rejectWithValue(error)

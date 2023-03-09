@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { getMeals } from './meals-thunk'
+import { addMeals, getMeals } from './meals-thunk'
 
 export const mealsactionsTypes = {
     GET_MEALS_SUCCESS: 'GET_MEALS_SUCCESS',
@@ -20,7 +20,6 @@ export const mealsSlice = createSlice({
             state.isLoading = false
             state.error = ''
         })
-
         builder.addCase(getMeals.pending, (state) => {
             state.isLoading = true
         })
@@ -28,6 +27,9 @@ export const mealsSlice = createSlice({
         builder.addCase(getMeals.rejected, (state, action) => {
             state.isLoading = false
             state.error = action.payload
+        })
+        builder.addCase(addMeals, (state, action) => {
+            state.maels = action.payload
         })
     },
 })

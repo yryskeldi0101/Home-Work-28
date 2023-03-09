@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import AddIcon from '@mui/icons-material/Add'
 import { TextField } from '@mui/material'
 import { Button } from '../../UI/Button'
 import { addtoBasket } from '../../../store/basket/thunk'
 
 function MealForm({ id, title, price }) {
+    const isAuthorized = useSelector((state) => state.auth.isAuthorized)
     const dispatch = useDispatch()
     const [amount, setAmount] = useState(1)
 
@@ -16,6 +17,9 @@ function MealForm({ id, title, price }) {
 
     const submitHandler = (event) => {
         event.preventDefault()
+        if (!isAuthorized) {
+            dispatch()
+        }
         const basketItem = {
             id,
             price,

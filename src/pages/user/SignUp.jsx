@@ -5,8 +5,8 @@ import React, { useState } from 'react'
 import { styled } from '@mui/material/styles'
 
 import { useDispatch } from 'react-redux'
-import { signUp } from '../store/auth/auth.thunk'
-import { UserRoles } from '../lib/constans/common'
+import { signUp } from '../../store/auth/auth.thunk'
+import { UserRoles } from '../../lib/constans/common'
 
 const SigUpPage = () => {
     const dispatch = useDispatch()
@@ -34,11 +34,12 @@ const SigUpPage = () => {
             name,
             email,
             password,
-            role: UserRoles.ADMIN,
+            role: UserRoles.USER,
         }
 
         dispatch(signUp(data))
-        navigate('/signin')
+            .unwrap()
+            .then(() => navigate('/'))
     }
     return (
         <Grid display="flex" justifyContent="center" marginTop={20}>
