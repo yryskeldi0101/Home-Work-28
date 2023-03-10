@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { Route, Routes } from 'react-router-dom'
 import React from 'react'
 import { useSelector } from 'react-redux'
@@ -12,6 +11,7 @@ import { ProtectedRoute } from './ProtectedRoute'
 import { UserRoles } from '../lib/constans/common'
 import SignIn from '../pages/user/SignIn'
 import SigUpPage from '../pages/user/SignUp'
+import UsersOrderPage from '../pages/user/UsersOrder'
 
 const AppRoutes = () => {
     const role = useSelector((state) => state.auth.user.role)
@@ -42,6 +42,16 @@ const AppRoutes = () => {
                             ])}
                             fallBackPath="/admin/meals"
                             component={MealsPage}
+                        />
+                    }
+                />
+                <Route
+                    path="/userorders"
+                    element={
+                        <ProtectedRoute
+                            isAllowed={isAllowed([UserRoles.USER])}
+                            fallBackPath="/userorders"
+                            component={UsersOrderPage}
                         />
                     }
                 />

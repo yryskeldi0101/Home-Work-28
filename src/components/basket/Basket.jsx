@@ -2,14 +2,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import styledComponent from 'styled-components'
 import { Modal } from '@mui/material'
 import { styled } from '@mui/material/styles'
-import {
-    deleteBasketItem,
-    updeteBasketItem,
-    submitOrder,
-} from '../../store/basket/thunk'
+import { deleteBasketItem, updeteBasketItem } from '../../store/basket/thunk'
 import { uiActions } from '../../store/UI/ui.slice'
 import { BasketItem } from './BasketItem'
 import { TotalAmount } from './TotalAmount'
+import { submitOrder } from '../../store/orders/order.thunk'
 
 const Basket = ({ onClose, open }) => {
     const dispatch = useDispatch()
@@ -17,6 +14,7 @@ const Basket = ({ onClose, open }) => {
     const getTotalPrice = () => {
         return items.reduce((sum, { price, amount }) => sum + amount * price, 0)
     }
+    console.log(getTotalPrice())
     const decrementAmount = (id, amount) => {
         if (amount > 1) {
             dispatch(updeteBasketItem({ amount: +amount - 1, id }))
@@ -29,9 +27,9 @@ const Basket = ({ onClose, open }) => {
         dispatch(updeteBasketItem({ amount: +amount + 1, id }))
     }
     const orderSubmitHandler = async () => {
+        dispatch(submitOrder(getTotalPrice()))
         try {
-            await dispatch(submitOrder({ orderData: { items } })).unwrap()
-            dispatch(
+            await dispatch(
                 uiActions.showSnackBar({
                     severity: 'success',
                     message: 'order completed successfully!',

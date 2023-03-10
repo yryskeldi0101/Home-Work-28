@@ -1,6 +1,6 @@
 import React from 'react'
 import { AppBar, Button, IconButton, Toolbar } from '@mui/material'
-import MenuIcon from '@mui/icons-material/Menu'
+// import MenuIcon from '@mui/icons-material/Menu'
 import { NavLink } from 'react-router-dom'
 import { styled } from '@mui/material/styles'
 import { useDispatch } from 'react-redux'
@@ -31,7 +31,7 @@ const AdminHeader = () => {
                     aria-label="menu"
                     sx={{ mr: 2 }}
                 >
-                    <MenuIcon />
+                    Menu
                 </IconButton>
                 {menu.map((item) => (
                     <StyledNavLink key={item.path} to={item.path}>

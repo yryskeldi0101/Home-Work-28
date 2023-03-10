@@ -5,8 +5,9 @@ import AddIcon from '@mui/icons-material/Add'
 import { TextField } from '@mui/material'
 import { Button } from '../../UI/Button'
 import { addtoBasket } from '../../../store/basket/thunk'
+import { withAuthModal } from '../../hoc/withAuthModal'
 
-function MealForm({ id, title, price }) {
+function MealForm({ id, title, price, showAuthModal }) {
     const isAuthorized = useSelector((state) => state.auth.isAuthorized)
     const dispatch = useDispatch()
     const [amount, setAmount] = useState(1)
@@ -18,8 +19,9 @@ function MealForm({ id, title, price }) {
     const submitHandler = (event) => {
         event.preventDefault()
         if (!isAuthorized) {
-            dispatch()
+            showAuthModal()
         }
+
         const basketItem = {
             id,
             price,
@@ -55,7 +57,7 @@ function MealForm({ id, title, price }) {
     )
 }
 
-export default MealForm
+export default withAuthModal(MealForm)
 
 const StyledText = styled(TextField)(() => ({
     marginRight: '10px',

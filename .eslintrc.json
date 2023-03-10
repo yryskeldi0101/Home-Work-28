@@ -29,6 +29,7 @@
         "import/prefer-default-export": "off",
         "import/newline-after-import": "off",
         "no-param-reassign": "off",
-        "react/no-array-index-key": "off"
+        "react/no-array-index-key": "off",
+        "import/no-cycle": "off"
     }
 }

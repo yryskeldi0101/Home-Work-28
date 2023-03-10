@@ -9,7 +9,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { signIn } from '../../store/auth/auth.thunk'
 
 const SignIn = () => {
-    const [error, setError] = useState()
+    const [error, setError] = useState('')
     const dispatch = useDispatch()
     const navigate = useNavigate()
 

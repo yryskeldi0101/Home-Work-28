@@ -2,14 +2,13 @@ import { AppBar, Button } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { Link, useNavigate } from 'react-router-dom'
 import styledComponents from 'styled-components'
 import { signOut } from '../../store/auth/auth.thunk'
 import { getBasket } from '../../store/basket/getBasket'
 import { uiActions } from '../../store/UI/ui.slice'
-import { BasketButton } from './BasketButton'
-
+// import BasketButton from './BasketButton'
+import BasketButton from './BasketButton'
 export const Header = ({ onShowBasket }) => {
     const navigate = useNavigate()
     const isAuthorized = useSelector((state) => state.auth.isAuthorized)
@@ -58,6 +57,12 @@ export const Header = ({ onShowBasket }) => {
                 className={animationClass}
                 count={calculateTotalAmount()}
             />
+            {isAuthorized ? (
+                <Link to="/userorders">
+                    <Order>My orders</Order>
+                </Link>
+            ) : null}
+
             <MuiButton
                 onClick={themeHandler}
                 className={animationClass}
@@ -110,4 +115,12 @@ const BtnStyle = styled(Button)`
     &:hover {
         background-color: azure;
     }
+`
+const Order = styled('span')`
+    color: white;
+    font-size: 25px;
+    font-weight: 700;
+    padding: 10px;
+    background-color: blue;
+    border-radius: 5px;
 `

@@ -1,6 +1,4 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
-// eslint-disable-next-line import/no-extraneous-dependencies
-import axios from 'axios'
 import {
     addToBasketRequest,
     deleteBasketItemRequest,
@@ -10,11 +8,9 @@ import { getBasket } from './getBasket'
 
 export const addtoBasket = createAsyncThunk(
     'basket/addToBasket',
-    async (newItem, { dispatch, rejectWithValue, getState }) => {
+    async (newItem, { dispatch, rejectWithValue }) => {
         try {
-            const { token } = getState().auth
-
-            await addToBasketRequest(token, newItem)
+            await addToBasketRequest(newItem)
             return dispatch(getBasket())
         } catch (error) {
             return rejectWithValue('Some thing wen wronf')
@@ -24,11 +20,9 @@ export const addtoBasket = createAsyncThunk(
 
 export const updeteBasketItem = createAsyncThunk(
     'basket/updeteBasket',
-    async ({ amount, id }, { dispatch, rejectWithValue, getState }) => {
+    async ({ amount, id }, { dispatch, rejectWithValue }) => {
         try {
-            const { token } = getState().auth
-
-            await updeteBasketItemRequest(id, amount, token)
+            await updeteBasketItemRequest(id, amount)
             dispatch(getBasket())
         } catch (error) {
             rejectWithValue(error)
@@ -38,30 +32,12 @@ export const updeteBasketItem = createAsyncThunk(
 
 export const deleteBasketItem = createAsyncThunk(
     '/basket/deleteBasket',
-    async (id, { dispatch, rejectWithValue, getState }) => {
+    async (id, { dispatch, rejectWithValue }) => {
         try {
-            const { token } = getState().auth
-
-            await deleteBasketItemRequest(id, token)
+            await deleteBasketItemRequest(id)
             dispatch(getBasket())
         } catch (error) {
             rejectWithValue(error)
-        }
-    }
-)
-
-export const submitOrder = createAsyncThunk(
-    'basket/submitOrder',
-    async ({ orderData }, { dispatch, rejectWithValue }) => {
-        try {
-            await axios.post(
-                `https://jsonplaceholder.typicode.com/posts`,
-                orderData
-            )
-
-            return dispatch(getBasket())
-        } catch (error) {
-            return rejectWithValue('Some thing wen wronf')
         }
     }
 )

@@ -2,19 +2,28 @@ import React from 'react'
 import styledComponents from 'styled-components'
 import { Button } from '@mui/material'
 import { styled } from '@mui/material/styles'
-
 import LocalGroceryStoreIcon from '@mui/icons-material/LocalGroceryStore'
+import { useSelector } from 'react-redux'
+import { withAuthModal } from '../hoc/withAuthModal'
 
-export const BasketButton = ({ count, ...restProps }) => {
+const BasketButton = ({ count, onClick, showAuthModal, ...restProps }) => {
+    const isAuthorized = useSelector((state) => state.auth.isAuthorized)
+
+    const showBasketModal = () => {
+        if (!isAuthorized) {
+            return showAuthModal()
+        }
+        return onClick()
+    }
     return (
-        <StyledButton {...restProps}>
+        <StyledButton {...restProps} onClick={showBasketModal}>
             <LocalGroceryStoreIcon />
             <StyledTitle>Your Cart</StyledTitle>
             <StyledCount id="counter">{count || 0}</StyledCount>
         </StyledButton>
     )
 }
-
+export default withAuthModal(BasketButton)
 const StyledButton = styled(Button)(({ theme }) => ({
     backgroundColor: theme.palette.primary.dark,
     borderRadius: '30px',

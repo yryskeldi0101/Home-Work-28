@@ -3,11 +3,9 @@ import { getBasketRequest } from '../../lib/constans/mealServis'
 
 export const getBasket = createAsyncThunk(
     'basket/getBasket',
-    async (_, { rejectWithValue, getState }) => {
+    async (_, { rejectWithValue }) => {
         try {
-            const { token } = getState().auth
-
-            const { data } = await getBasketRequest(token)
+            const { data } = await getBasketRequest()
             return data.data.items
         } catch (error) {
             return rejectWithValue('something went wrong getBasket ')
