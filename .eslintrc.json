@@ -30,6 +30,7 @@
         "import/newline-after-import": "off",
         "no-param-reassign": "off",
         "react/no-array-index-key": "off",
-        "import/no-cycle": "off"
+        "import/no-cycle": "off",
+        "import/no-extraneous-dependencies": "off"
     }
 }

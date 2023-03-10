@@ -5,13 +5,14 @@ import { Typography } from '@mui/material'
 import UserLayout from '../layout/UserLayout'
 import MealsPage from '../pages/user/Meals'
 import AdminLayout from '../layout/AdminLayout'
-import Orders from '../pages/admin/Orders.page'
+
 import MealsAdmin from '../pages/admin/Meals.page'
 import { ProtectedRoute } from './ProtectedRoute'
 import { UserRoles } from '../lib/constans/common'
 import SignIn from '../pages/user/SignIn'
 import SigUpPage from '../pages/user/SignUp'
 import UsersOrderPage from '../pages/user/UsersOrder'
+import AllOrders from '../pages/admin/Orders.page'
 
 const AppRoutes = () => {
     const role = useSelector((state) => state.auth.user.role)
@@ -112,7 +113,7 @@ const AppRoutes = () => {
                         <ProtectedRoute
                             isAllowed={isAllowed([UserRoles.ADMIN])}
                             fallBackPath="/"
-                            component={Orders}
+                            component={AllOrders}
                         />
                     }
                 />
